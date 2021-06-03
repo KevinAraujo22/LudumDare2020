@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/game theme 2.wav-f675637d285806357e499e1697ea3c87.sample"
+
+[deps]
+
+source_file="res://Start Game/game theme 2.wav"
+dest_files=[ "res://.import/game theme 2.wav-f675637d285806357e499e1697ea3c87.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

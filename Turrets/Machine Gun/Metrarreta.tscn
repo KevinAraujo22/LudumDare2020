@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Turrets/Machine Gun/Metrarreta.gd" type="Script" id=1]
+[ext_resource path="res://Turrets/Machine Gun/gun_0.png" type="Texture" id=2]
+[ext_resource path="res://Turrets/Machine Gun/gun_1.png" type="Texture" id=3]
+[ext_resource path="res://Turrets/Basic/corpo.png" type="Texture" id=4]
+[ext_resource path="res://Turrets/Machine Gun/Baleta.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 42.2878, 57.0047 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 288.474
+height = 855.539
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "shooting",
+"speed": 10.0
+} ]
+
+[node name="Metrarreta" type="KinematicBody2D" groups=[
+"torreta",
+]]
+z_index = 1
+script = ExtResource( 1 )
+tiro = ExtResource( 5 )
+tempo = 5.0
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -0.506973 )
+shape = SubResource( 1 )
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="b" type="CollisionShape2D" parent="Area"]
+position = Vector2( 622.477, 292.282 )
+rotation = -1.04673
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.500351, -54.9214 )
+scale = Vector2( 3.5, 3.5 )
+frames = SubResource( 3 )
+animation = "shooting"
+playing = true
+offset = Vector2( 18.9189, -6.5369 )
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite"]
+position = Vector2( 46.734, -7.06054 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="atirar" type="Timer" parent="."]
+wait_time = 0.1
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="atirar" to="." method="_on_atirar_timeout"]

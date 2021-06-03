@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Turrets/Basic/Torreta.gd" type="Script" id=1]
+[ext_resource path="res://Turrets/Basic/corpo.png" type="Texture" id=2]
+[ext_resource path="res://Turrets/Basic/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Turrets/Basic/arma.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 42.2878, 57.0047 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 288.474
+height = 855.539
+
+[node name="Turret" type="KinematicBody2D" groups=[
+"torreta",
+]]
+z_index = 1
+script = ExtResource( 1 )
+tiro = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -0.506973 )
+shape = SubResource( 1 )
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="b" type="CollisionShape2D" parent="Area"]
+position = Vector2( 622.477, 292.282 )
+rotation = -1.04673
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 1.96753, -55.6165 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+offset = Vector2( 3.88529, -9.07607 )
+
+[node name="Area2D" type="Area2D" parent="Sprite2"]
+position = Vector2( 10.9442, -4.78703 )
+scale = Vector2( 2.5, 2.5 )
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
